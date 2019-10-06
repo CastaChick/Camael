@@ -5,7 +5,7 @@ def example(hoge):
     ----------
     hoge : str
         引数
-    
+
     Examples
     --------
     >>> example('hoge')
