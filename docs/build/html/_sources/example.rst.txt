@@ -1,0 +1,5 @@
+Example
+=======
+
+.. automodule :: example
+    :members:
