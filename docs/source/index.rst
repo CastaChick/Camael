@@ -11,6 +11,7 @@ Welcome to Camael's documentation!
    :caption: Contents:
 
    example
+   load_data
 
 
 
