@@ -3,12 +3,12 @@
 ## データのload、前処理
 * データ
     * 数値系
-        * [ ] boston
-        * [ ] iris
+        * [x] boston
+        * [x] iris
     * 画像系
-        * [ ] MNIST
-        * [ ] MNIST-fashion
-        * [ ] CIFAR-10
+        * [x] MNIST
+        * [x] MNIST-fashion
+        * [x] CIFAR-10
 
 * 前処理
     * [ ] test-training分割
