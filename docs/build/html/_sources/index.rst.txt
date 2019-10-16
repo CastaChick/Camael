@@ -10,7 +10,6 @@ Welcome to Camael's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   example
    load_data
 
 
