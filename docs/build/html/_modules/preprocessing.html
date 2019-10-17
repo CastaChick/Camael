@@ -83,6 +83,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../load_data.html">load_data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../preprocessing.html">preprocessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preprocessing.Standardization.html">preprocessing.Standardization</a></li>
 </ul>
 
             
@@ -233,6 +234,120 @@
     <span class="k">assert</span> <span class="n">num_arrays</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">splited_data</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">splited_data</span></div>
+
+
+<div class="viewcode-block" id="Standardization"><a class="viewcode-back" href="../preprocessing.Standardization.html#preprocessing.Standardization">[ドキュメント]</a><span class="k">class</span> <span class="nc">Standardization</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;データの標準化を行う</span>
+
+<span class="sd">    デフォルトでは各パラメータについて平均0, 分散1になるようにアフィン変換</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    mean: float or list (default=0)</span>
+<span class="sd">        標準化後のデータの平均値</span>
+
+<span class="sd">        リストの場合は各特徴量の平均値を順に並べたもの</span>
+
+<span class="sd">    variance: float or list (default=1)</span>
+<span class="sd">        標準化後のデータの分散</span>
+
+<span class="sd">        リストの場合は各特徴量の分散を順に並べたもの</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from load_data import load_boston</span>
+<span class="sd">    &gt;&gt;&gt; (X_train, _), (X_test, _) = load_boston()</span>
+<span class="sd">    &gt;&gt;&gt; transformer = Standardization()</span>
+<span class="sd">    &gt;&gt;&gt; transformer.fit(X_train)</span>
+<span class="sd">    &gt;&gt;&gt; X_train_std, X_test_std = \</span>
+<span class="sd">        transformer.transform(X_train, X_test)</span>
+<span class="sd">    &gt;&gt;&gt; np.mean(X_train_std, axis=0)</span>
+<span class="sd">    array([-1.01541438e-16,  1.09923072e-17,  1.74337992e-15, -1.26686340e-16,</span>
+<span class="sd">           -5.25377321e-15,  6.41414864e-15,  2.98441140e-16,  4.94653823e-16,</span>
+<span class="sd">            1.12671149e-17, -1.98136337e-16,  2.36686358e-14,  5.95679996e-15,</span>
+<span class="sd">            6.13920356e-16])</span>
+<span class="sd">    &gt;&gt;&gt; np.mean(X_test_std, axis=0)</span>
+<span class="sd">    array([-0.0707286 , -0.02435885,  0.02358875,  0.1500709 , -0.11267862,</span>
+<span class="sd">            0.12282991, -0.07746073,  0.13399985,  0.0621344 ,  0.06981759,</span>
+<span class="sd">           -0.04617659,  0.09979472, -0.06008184])</span>
+<span class="sd">    &gt;&gt;&gt; np.var(X_train_std, axis=0)</span>
+<span class="sd">    array([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.])</span>
+<span class="sd">    &gt;&gt;&gt; np.var(X_test_std, axis=0)</span>
+<span class="sd">    array([0.33560812, 0.81778861, 1.07377123, 1.52324933, 0.87327937,</span>
+<span class="sd">           0.89066136, 1.07193268, 1.36413552, 1.00955956, 1.12845533,</span>
+<span class="sd">           0.84220326, 0.70192238, 0.84553242])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">maen</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">variance</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mean</span> <span class="o">=</span> <span class="n">maen</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">variance</span> <span class="o">=</span> <span class="n">variance</span>
+
+<div class="viewcode-block" id="Standardization.fit"><a class="viewcode-back" href="../preprocessing.Standardization.html#preprocessing.Standardization.fit">[ドキュメント]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">array</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;データの平均値, 分散を得る</span>
+
+<span class="sd">        トレーニングデータとテストデータを同じパラメータで標準化するため</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        array: array shape=(samples, columns)</span>
+<span class="sd">            代表値を算出する行列</span>
+
+<span class="sd">        axis: int(default=0)</span>
+<span class="sd">            平均, 分散を計算する軸</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_variance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mean</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">float</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">mean</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mean</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">variance</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">float</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">variance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">variance</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_variance</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="Standardization.transform"><a class="viewcode-back" href="../preprocessing.Standardization.html#preprocessing.Standardization.transform">[ドキュメント]</a>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">arrays</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        実際にデータを標準化する</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        *arrays: sequence of arrays</span>
+<span class="sd">            標準化を行う行列</span>
+
+<span class="sd">            同じカラム数を持つ幾つかの行列</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        transformed_arrays: list</span>
+<span class="sd">            標準化された行列のリスト</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">transformed_arrays</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">array</span> <span class="ow">in</span> <span class="n">arrays</span><span class="p">:</span>
+            <span class="n">transformed_arrays</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">array</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mean</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_variance</span><span class="o">**</span><span class="mf">0.5</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">transformed_arrays</span></div>
+
+<div class="viewcode-block" id="Standardization.fit_transform"><a class="viewcode-back" href="../preprocessing.Standardization.html#preprocessing.Standardization.fit_transform">[ドキュメント]</a>    <span class="k">def</span> <span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">arrays</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;代表値の計算と標準化を連続して行う</span>
+
+<span class="sd">        引数に指定された行列の最初の行列を用いて代表値を計算する</span>
+
+<span class="sd">        その代表値を用いて引数の行列を標準化する</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        *arrays: sequense of arrays</span>
+<span class="sd">            標準化を行う行列の組</span>
+
+<span class="sd">            １つ目の行列を基準に標準化を行う</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        transformed_arrays: list</span>
+<span class="sd">            標準化された行列のリスト</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">arrays</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">arrays</span><span class="p">)</span></div></div>
 </pre></div>
 
            </div>

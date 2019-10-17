@@ -2,4 +2,4 @@ preprocessing
 =============
 
 .. automodule :: preprocessing
-    :members:
+    :members: train_test_split

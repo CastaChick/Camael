@@ -90,8 +90,6 @@ def train_test_split(*arrays, rate=0.2, random_state=None, shuffle=True):
 class Standardization:
     """データの標準化を行う
 
-    データを標準化する
-
     デフォルトでは各パラメータについて平均0, 分散1になるようにアフィン変換
 
     Parameters
@@ -101,19 +99,10 @@ class Standardization:
 
         リストの場合は各特徴量の平均値を順に並べたもの
 
-
     variance: float or list (default=1)
         標準化後のデータの分散
 
         リストの場合は各特徴量の分散を順に並べたもの
-
-    Attributes
-    ----------
-    _mean: float or vector
-        元データの各特徴量の平均値
-
-    _variance: float or vector
-        元データの各特徴量の分散
 
     Examples
     --------
@@ -146,8 +135,6 @@ class Standardization:
     def fit(self, array, axis=0):
         """データの平均値, 分散を得る
 
-        データの平均値と分散を算出する
-
         トレーニングデータとテストデータを同じパラメータで標準化するため
 
         Parameters
@@ -166,8 +153,7 @@ class Standardization:
             self.variance = np.array([self.variance] * self._variance.shape[0])
 
     def transform(self, *arrays):
-        """データの標準化を行う
-
+        """
         実際にデータを標準化する
 
         Parameters

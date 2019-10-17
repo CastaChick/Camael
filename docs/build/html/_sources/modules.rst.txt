@@ -1,0 +1,7 @@
+camael
+======
+
+.. toctree::
+   :maxdepth: 4
+
+   camael

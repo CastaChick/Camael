@@ -1,0 +1,30 @@
+camael package
+==============
+
+Submodules
+----------
+
+camael.load\_data module
+------------------------
+
+.. automodule:: camael.load_data
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+camael.preprocessing module
+---------------------------
+
+.. automodule:: camael.preprocessing
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: camael
+   :members:
+   :undoc-members:
+   :show-inheritance:
