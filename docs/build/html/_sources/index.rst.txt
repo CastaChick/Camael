@@ -11,7 +11,7 @@ Welcome to Camael's documentation!
    :caption: Contents:
 
    load_data
-   preprocessing
+   preprocessing.utils
    preprocessing.Standardization
 
 
