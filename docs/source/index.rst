@@ -11,6 +11,7 @@ Welcome to Camael's documentation!
    :caption: Contents:
 
    load_data
+   preprocessing
 
 
 

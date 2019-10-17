@@ -11,7 +11,7 @@
         * [x] CIFAR-10
 
 * 前処理
-    * [ ] test-training分割
+    * [x] test-training分割
     * [ ] 正規化
     * [ ] 標準化
     * [ ] one-hot

@@ -6,7 +6,8 @@ def train_test_split(*arrays, rate=0.2, random_state=None, shuffle=True):
 
     Parameters
     ----------
-    *arrays: 同じサンプル数を持ついくつかの行列
+    *arrays: sequence of arrays
+        同じサンプル数を持ついくつかの行列
 
     rate: float(default=0.2)
         全体に対する分割後のテストデータの割合
@@ -21,6 +22,7 @@ def train_test_split(*arrays, rate=0.2, random_state=None, shuffle=True):
     -------
     splited_data: list
         与えられた行列の数 * 2 の長さを持つ
+
         [array0_train, array0_test, array1_train, array1_test, ...]のような形式
 
     Examples
