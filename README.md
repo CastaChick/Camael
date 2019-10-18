@@ -14,7 +14,7 @@
     * [x] test-training分割
     * [x] 正規化
     * [x] 標準化
-    * [ ] one-hot
+    * [x] one-hot
 
 ## 非NN用
 * 回帰

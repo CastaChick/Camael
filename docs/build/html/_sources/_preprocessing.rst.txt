@@ -1,5 +1,0 @@
-preprocessing
-=============
-
-.. autofunction :: preprocessing.train_test_split
-    :members:
