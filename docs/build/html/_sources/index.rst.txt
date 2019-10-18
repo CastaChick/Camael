@@ -13,6 +13,7 @@ Welcome to Camael's documentation!
    load_data
    preprocessing.utils
    preprocessing.Standardization
+   preprocessing.Normalization
 
 
 

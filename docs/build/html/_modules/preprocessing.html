@@ -84,6 +84,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../load_data.html">load_data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../preprocessing.utils.html">preprocessing.utils</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../preprocessing.Standardization.html">preprocessing.Standardization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preprocessing.Normalization.html">preprocessing.Normalization</a></li>
 </ul>
 
             
@@ -239,7 +240,7 @@
 <div class="viewcode-block" id="Standardization"><a class="viewcode-back" href="../preprocessing.Standardization.html#preprocessing.Standardization">[ドキュメント]</a><span class="k">class</span> <span class="nc">Standardization</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;データの標準化を行う</span>
 
-<span class="sd">    デフォルトでは各パラメータについて平均0, 分散1になるようにアフィン変換</span>
+<span class="sd">    デフォルトでは各パラメータについて平均0, 分散1になるように変換</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -344,6 +345,118 @@
 <span class="sd">        -------</span>
 <span class="sd">        transformed_arrays: list</span>
 <span class="sd">            標準化された行列のリスト</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">arrays</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">arrays</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Normalization"><a class="viewcode-back" href="../preprocessing.Normalization.html#preprocessing.Normalization">[ドキュメント]</a><span class="k">class</span> <span class="nc">Normalization</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;データの正規化を行う</span>
+
+<span class="sd">    デフォルトでは各パラメータについて最小値 0, 最大値 1になるように変換</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    min: float or list (default=0)</span>
+<span class="sd">        標準化後のデータの最小値</span>
+
+<span class="sd">        リストの場合は各特徴量の最小値を順に並べたもの</span>
+
+<span class="sd">    max: float or list (default=1)</span>
+<span class="sd">        標準化後のデータの最大値</span>
+
+<span class="sd">        リストの場合は各特徴量の最大値を順に並べたもの</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from load_data import load_boston</span>
+<span class="sd">    &gt;&gt;&gt; (X_train, _), (X_test, _) = load_boston()</span>
+<span class="sd">    &gt;&gt;&gt; transformer = Normalization()</span>
+<span class="sd">    &gt;&gt;&gt; transformer.fit(X_train)</span>
+<span class="sd">    &gt;&gt;&gt; X_train_norm, X_test_norm = \</span>
+<span class="sd">        transformer.transform(X_train, X_test)</span>
+<span class="sd">    &gt;&gt;&gt; np.min(X_train_norm, axis=0)</span>
+<span class="sd">    array([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.])</span>
+<span class="sd">    &gt;&gt;&gt; np.min(X_test_norm, axis=0)</span>
+<span class="sd">    array([ 7.63179629e-05,  0.00000000e+00,  2.78592375e-02,  0.00000000e+00,</span>
+<span class="sd">            1.44032922e-02,  2.55422153e-01,  3.19258496e-02,  3.50600687e-02,</span>
+<span class="sd">            0.00000000e+00, -1.91204589e-03,  4.25531915e-02,  6.13495386e-02,</span>
+<span class="sd">            5.24282561e-03])</span>
+<span class="sd">    &gt;&gt;&gt; np.max(X_train_norm, axis=0)</span>
+<span class="sd">    array([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.])</span>
+<span class="sd">    &gt;&gt;&gt; np.max(X_test_norm, axis=0)</span>
+<span class="sd">    array([0.28144109, 0.9       , 1.        , 1.        , 1.        ,</span>
+<span class="sd">           1.01065066, 1.        , 1.14781801, 1.        , 1.        ,</span>
+<span class="sd">           0.91489362, 1.        , 0.83498896])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">=</span> <span class="nb">min</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">=</span> <span class="nb">max</span>
+
+<div class="viewcode-block" id="Normalization.fit"><a class="viewcode-back" href="../preprocessing.Normalization.html#preprocessing.Normalization.fit">[ドキュメント]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">array</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;データの最小値, 最大値を得る</span>
+
+<span class="sd">        トレーニングデータとテストデータを同じパラメータで正規化するため</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        array: array shape=(samples, columns)</span>
+<span class="sd">            代表値を算出する行列</span>
+
+<span class="sd">        axis: int(default=0)</span>
+<span class="sd">            平均, 分散を計算する軸</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_min</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">min</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">float</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">min</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_min</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">float</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">max</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="Normalization.transform"><a class="viewcode-back" href="../preprocessing.Normalization.html#preprocessing.Normalization.transform">[ドキュメント]</a>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">arrays</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        実際にデータを標準化する</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        *arrays: sequence of arrays</span>
+<span class="sd">            正規化を行う行列</span>
+
+<span class="sd">            同じカラム数を持つ幾つかの行列</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        transformed_arrays: list</span>
+<span class="sd">            正規化された行列のリスト</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">transformed_arrays</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">array</span> <span class="ow">in</span> <span class="n">arrays</span><span class="p">:</span>
+            <span class="n">transformed_arrays</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">array</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_min</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_max</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_min</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">transformed_arrays</span></div>
+
+<div class="viewcode-block" id="Normalization.fit_transform"><a class="viewcode-back" href="../preprocessing.Normalization.html#preprocessing.Normalization.fit_transform">[ドキュメント]</a>    <span class="k">def</span> <span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">arrays</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;代表値の計算と正規化を連続して行う</span>
+
+<span class="sd">        引数に指定された行列の最初の行列を用いて代表値を計算する</span>
+
+<span class="sd">        その代表値を用いて引数の行列を正規化する</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        *arrays: sequense of arrays</span>
+<span class="sd">            標準化を行う行列の組</span>
+
+<span class="sd">            １つ目の行列を基準に標準化を行う</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        transformed_arrays: list</span>
+<span class="sd">            正規化された行列のリスト</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">arrays</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
