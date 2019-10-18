@@ -175,7 +175,10 @@ class Standardization:
                 (array - self._mean) / self._variance**0.5
             )
 
-        return transformed_arrays
+        if len(transformed_arrays) > 1:
+            return transformed_arrays
+        else:
+            return transformed_arrays[0]
 
     def fit_transform(self, *arrays, axis=0):
         """代表値の計算と標準化を連続して行う
@@ -193,12 +196,12 @@ class Standardization:
 
         Returns
         -------
-        transformed_arrays: list
+        transformed_arrays: list or array
             標準化された行列のリスト
         """
 
         self.fit(arrays[0], axis=axis)
-        return self.transform(arrays)
+        return self.transform(*arrays)
 
 
 class Normalization:
@@ -277,7 +280,7 @@ class Normalization:
 
         Returns
         -------
-        transformed_arrays: list
+        transformed_arrays: list or array
             正規化された行列のリスト
         """
         transformed_arrays = []
@@ -287,7 +290,10 @@ class Normalization:
                 (array - self._min) / (self._max - self._min)
             )
 
-        return transformed_arrays
+        if len(transformed_arrays) > 1:
+            return transformed_arrays
+        else:
+            return transformed_arrays[0]
 
     def fit_transform(self, *arrays, axis=0):
         """代表値の計算と正規化を連続して行う
@@ -305,9 +311,107 @@ class Normalization:
 
         Returns
         -------
-        transformed_arrays: list
+        transformed_arrays: list or array
             正規化された行列のリスト
         """
 
         self.fit(arrays[0], axis=axis)
-        return self.transform(arrays)
+        return self.transform(*arrays)
+
+
+class MakeOneHot:
+    """
+    カテゴリラベルをone-hot形式に変換する
+
+    Examples
+    --------
+    >>> from load_data import load_iris
+    >>> _, y = load_iris()
+    >>> print(set(y))
+    {0, 1, 2}
+    >>> transformer = MakeOneHot()
+    >>> y_one_hot = transformer.fit_transform(y)
+    >>> print(y_one_hot[::15])
+    [[1. 0. 0.]
+     [1. 0. 0.]
+     [1. 0. 0.]
+     [1. 0. 0.]
+     [0. 1. 0.]
+     [0. 1. 0.]
+     [0. 1. 0.]
+     [0. 0. 1.]
+     [0. 0. 1.]
+     [0. 0. 1.]]
+    """
+
+    def fit(self, labels):
+        """
+        カテゴリとone-hotベクトルを対応付ける
+
+        Parameters
+        ----------
+        labels: list or vector
+            変換したいカテゴリラベルの一次元配列
+
+        Attributes
+        ----------
+        associative_dict: dict
+            カテゴリの名前と番号の対応
+        """
+        label_names = set(labels)
+        self.associative_dict = {}
+
+        for i, label_name in enumerate(label_names):
+            self.associative_dict[label_name] = i
+
+    def transform(self, *label_vectors):
+        """
+        カテゴリ変数のベクトルををone-hot表現にする
+
+        Parameters
+        ----------
+        *label_vectors: sequence of vectors
+            one-hotベクトル化したいカテゴリラベルの組
+
+            fitに使ったカテゴリラベルと同じカテゴリを持つこと
+
+        Returns
+        -------
+        transformed_labels: list or vector
+            one-hot化されたカテゴリラベルを並べたリスト
+        """
+        transformed_labels = []
+
+        for labels in label_vectors:
+            one_hot = np.zeros((len(labels), len(self.associative_dict)))
+            for i, label in enumerate(labels):
+                one_hot[i][self.associative_dict[label]] += 1
+            transformed_labels.append(one_hot)
+
+        if len(transformed_labels) > 1:
+            return transformed_labels
+        else:
+            return transformed_labels[0]
+
+    def fit_transform(self, *label_vectors):
+        """
+        カテゴリの対応付けとone-hot化を連続して行う
+
+        引数に指定されたベクトルの最初のものを使って対応を作る
+
+        その対応を使って全てのベクトルをone-hot表現にする
+
+        Parameters
+        ----------
+        *label_vectors: sequence of vectors
+            one-hot化したいカテゴリラベルの組
+
+            1つ目のベクトルを使ってone-hot化する
+
+        Returns
+        -------
+        transformed_labels: list or vector
+            one-hot化されたカテゴリラベルを並べたリスト
+        """
+        self.fit(label_vectors[0])
+        return self.transform(*label_vectors)
