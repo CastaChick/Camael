@@ -90,7 +90,7 @@ def train_test_split(*arrays, rate=0.2, random_state=None, shuffle=True):
 class Standardization:
     """データの標準化を行う
 
-    デフォルトでは各パラメータについて平均0, 分散1になるようにアフィン変換
+    デフォルトでは各パラメータについて平均0, 分散1になるように変換
 
     Parameters
     ----------
@@ -195,6 +195,118 @@ class Standardization:
         -------
         transformed_arrays: list
             標準化された行列のリスト
+        """
+
+        self.fit(arrays[0], axis=axis)
+        return self.transform(arrays)
+
+
+class Normalization:
+    """データの正規化を行う
+
+    デフォルトでは各パラメータについて最小値 0, 最大値 1になるように変換
+
+    Parameters
+    ----------
+    min: float or list (default=0)
+        標準化後のデータの最小値
+
+        リストの場合は各特徴量の最小値を順に並べたもの
+
+    max: float or list (default=1)
+        標準化後のデータの最大値
+
+        リストの場合は各特徴量の最大値を順に並べたもの
+
+    Examples
+    --------
+    >>> from load_data import load_boston
+    >>> (X_train, _), (X_test, _) = load_boston()
+    >>> transformer = Normalization()
+    >>> transformer.fit(X_train)
+    >>> X_train_norm, X_test_norm = \
+        transformer.transform(X_train, X_test)
+    >>> np.min(X_train_norm, axis=0)
+    array([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.])
+    >>> np.min(X_test_norm, axis=0)
+    array([ 7.63179629e-05,  0.00000000e+00,  2.78592375e-02,  0.00000000e+00,
+            1.44032922e-02,  2.55422153e-01,  3.19258496e-02,  3.50600687e-02,
+            0.00000000e+00, -1.91204589e-03,  4.25531915e-02,  6.13495386e-02,
+            5.24282561e-03])
+    >>> np.max(X_train_norm, axis=0)
+    array([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.])
+    >>> np.max(X_test_norm, axis=0)
+    array([0.28144109, 0.9       , 1.        , 1.        , 1.        ,
+           1.01065066, 1.        , 1.14781801, 1.        , 1.        ,
+           0.91489362, 1.        , 0.83498896])
+    """
+    def __init__(self, min=0.0, max=1.0):
+        self.min = min
+        self.max = max
+
+    def fit(self, array, axis=0):
+        """データの最小値, 最大値を得る
+
+        トレーニングデータとテストデータを同じパラメータで正規化するため
+
+        Parameters
+        ----------
+        array: array shape=(samples, columns)
+            代表値を算出する行列
+
+        axis: int(default=0)
+            平均, 分散を計算する軸
+        """
+        self._min = np.min(array, axis=axis)
+        self._max = np.max(array, axis=axis)
+        if type(self.min) is float:
+            self.min = np.array([self.min] * self._min.shape[0])
+        if type(self.max) is float:
+            self.max = np.array([self.max] * self._max.shape[0])
+
+    def transform(self, *arrays):
+        """
+        実際にデータを標準化する
+
+        Parameters
+        ----------
+        *arrays: sequence of arrays
+            正規化を行う行列
+
+            同じカラム数を持つ幾つかの行列
+
+        Returns
+        -------
+        transformed_arrays: list
+            正規化された行列のリスト
+        """
+        transformed_arrays = []
+
+        for array in arrays:
+            transformed_arrays.append(
+                (array - self._min) / (self._max - self._min)
+            )
+
+        return transformed_arrays
+
+    def fit_transform(self, *arrays, axis=0):
+        """代表値の計算と正規化を連続して行う
+
+        引数に指定された行列の最初の行列を用いて代表値を計算する
+
+        その代表値を用いて引数の行列を正規化する
+
+        Parameters
+        ----------
+        *arrays: sequense of arrays
+            標準化を行う行列の組
+
+            １つ目の行列を基準に標準化を行う
+
+        Returns
+        -------
+        transformed_arrays: list
+            正規化された行列のリスト
         """
 
         self.fit(arrays[0], axis=axis)
