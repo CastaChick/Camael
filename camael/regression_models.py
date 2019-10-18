@@ -11,7 +11,7 @@ class LinearRegression:
     intercept: boolean(default=True)
         切片要素を入れるかどうか
 
-    Exsamples
+    Examples
     ---------
     >>> from load_data import load_boston
     >>> (X_train, y_train), (X_test, y_test) = load_boston()
@@ -34,10 +34,10 @@ class LinearRegression:
 
         Parameters
         ----------
-        X: array shape=(samples, colunms)
+        X: array, shape=(samples, colunms)
             説明変数の行列
 
-        y: vector len=(samples)
+        y: vector, len=(samples)
             目的変数のベクトル
 
         Attributes
@@ -61,12 +61,12 @@ class LinearRegression:
 
         Parameters
         ----------
-        X: array shape=(samples, columns)
+        X: array, shape=(samples, columns)
             予測したいデータの説明変数
 
         Returns
         -------
-        y: vector len=(samples)
+        y: vector, len=(samples)
             予測された目的変数
         """
         if self.intercept:
@@ -88,10 +88,10 @@ class LinearRegression:
 
         Parameters
         ----------
-        X: array shape=(samples, columns)
+        X: array, shape=(samples, columns)
             説明変数の行列
 
-        y: vector len=(samples)
+        y: vector, len=(samples)
             目的変数のベクトル
 
         Returns

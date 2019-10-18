@@ -139,7 +139,7 @@ class Standardization:
 
         Parameters
         ----------
-        array: array shape=(samples, columns)
+        array: array, shape=(samples, columns)
             代表値を算出する行列
 
         axis: int(default=0)
@@ -254,7 +254,7 @@ class Normalization:
 
         Parameters
         ----------
-        array: array shape=(samples, columns)
+        array: array, shape=(samples, columns)
             代表値を算出する行列
 
         axis: int(default=0)

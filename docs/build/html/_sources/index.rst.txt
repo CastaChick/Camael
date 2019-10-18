@@ -12,6 +12,7 @@ Welcome to Camael's documentation!
 
    load_data
    preprocessing
+   regression_models
 
 
 Indices and tables
