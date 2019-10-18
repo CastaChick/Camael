@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Example &mdash; Camael 0.0.0 ドキュメント</title>
+  <title>preprocessing &mdash; Camael 0.0.0 ドキュメント</title>
   
 
   
@@ -36,7 +36,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="検索" href="search.html" />
-    <link rel="prev" title="Welcome to Camael&#39;s documentation!" href="index.html" /> 
+    <link rel="next" title="preprocessing.utils" href="preprocessing.utils.html" />
+    <link rel="prev" title="load_data" href="load_data.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -82,7 +83,14 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="load_data.html">load_data</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">preprocessing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing.utils.html">preprocessing.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing.Standardization.html">preprocessing.Standardization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing.Normalization.html">preprocessing.Normalization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing.MakeOneHot.html">preprocessing.MakeOneHot</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -128,13 +136,13 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Example</li>
+      <li>preprocessing</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/example.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/preprocessing.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -147,41 +155,18 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-example">
-<span id="example"></span><h1>Example<a class="headerlink" href="#module-example" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<dl class="function">
-<dt id="example.example">
-<code class="sig-prename descclassname">example.</code><code class="sig-name descname">example</code><span class="sig-paren">(</span><em class="sig-param">hoge</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/example.html#example"><span class="viewcode-link">[ソース]</span></a><a class="headerlink" href="#example.example" title="この定義へのパーマリンク">¶</a></dt>
-<dd><p>これは例です</p>
-<dl class="field-list simple">
-<dt class="field-odd">パラメータ</dt>
-<dd class="field-odd"><p><strong>hoge</strong> (<em>str</em>) -- 引数</p>
-</dd>
-</dl>
-<p class="rubric">サンプル</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">example</span><span class="p">(</span><span class="s1">&#39;hoge&#39;</span><span class="p">)</span>
-<span class="go">hoge</span>
-</pre></div>
+  <div class="section" id="preprocessing">
+<h1>preprocessing<a class="headerlink" href="#preprocessing" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>データの前処理をするモジュール</p>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="preprocessing.utils.html">preprocessing.utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="preprocessing.Standardization.html">preprocessing.Standardization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="preprocessing.Normalization.html">preprocessing.Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="preprocessing.MakeOneHot.html">preprocessing.MakeOneHot</a></li>
+</ul>
 </div>
-</dd></dl>
-
-<span class="target" id="module-example2"></span><dl class="function">
-<dt id="example2.example2">
-<code class="sig-prename descclassname">example2.</code><code class="sig-name descname">example2</code><span class="sig-paren">(</span><em class="sig-param">fuga</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/example2.html#example2"><span class="viewcode-link">[ソース]</span></a><a class="headerlink" href="#example2.example2" title="この定義へのパーマリンク">¶</a></dt>
-<dd><p>これは例です</p>
-<p>１つのページに複数のモジュールを入れる動作確認</p>
-<dl class="field-list simple">
-<dt class="field-odd">パラメータ</dt>
-<dd class="field-odd"><p><strong>fuga</strong> (<em>str</em>) -- 引数</p>
-</dd>
-</dl>
-<p class="rubric">サンプル</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">example2</span><span class="p">(</span><span class="s1">&#39;fuga&#39;</span><span class="p">)</span>
-<span class="go">fuga</span>
-</pre></div>
-</div>
-</dd></dl>
-
 </div>
 
 
@@ -192,8 +177,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="preprocessing.utils.html" class="btn btn-neutral float-right" title="preprocessing.utils" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to Camael&#39;s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+        <a href="load_data.html" class="btn btn-neutral float-left" title="load_data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

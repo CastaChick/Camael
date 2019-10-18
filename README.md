@@ -11,10 +11,10 @@
         * [x] CIFAR-10
 
 * 前処理
-    * [ ] test-training分割
-    * [ ] 正規化
-    * [ ] 標準化
-    * [ ] one-hot
+    * [x] test-training分割
+    * [x] 正規化
+    * [x] 標準化
+    * [x] one-hot
 
 ## 非NN用
 * 回帰
