@@ -2,3 +2,4 @@
 .python-version
 .vscode
 camael/__pycache__/*
+camael/docs/build/*
