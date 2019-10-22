@@ -14,6 +14,7 @@ Welcome to Camael's documentation!
    preprocessing
    regression_models
 
+   classifier_models
 
 Indices and tables
 ==================
