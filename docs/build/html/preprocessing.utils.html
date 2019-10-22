@@ -1,0 +1,274 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ja" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ja" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>preprocessing.utils &mdash; Camael 0.0.0 ドキュメント</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="_static/translations.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="preprocessing.Standardization" href="preprocessing.Standardization.html" />
+    <link rel="prev" title="preprocessing" href="preprocessing.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Camael
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="load_data.html">load_data</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="preprocessing.html">preprocessing</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">preprocessing.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing.Standardization.html">preprocessing.Standardization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing.Normalization.html">preprocessing.Normalization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing.MakeOneHot.html">preprocessing.MakeOneHot</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="regression_models.html">regression_models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="classifier_models.html">classifier_models</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Camael</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="preprocessing.html">preprocessing</a> &raquo;</li>
+        
+      <li>preprocessing.utils</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/preprocessing.utils.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-preprocessing">
+<span id="preprocessing-utils"></span><h1>preprocessing.utils<a class="headerlink" href="#module-preprocessing" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<dl class="function">
+<dt id="preprocessing.train_test_split">
+<code class="sig-prename descclassname">preprocessing.</code><code class="sig-name descname">train_test_split</code><span class="sig-paren">(</span><em class="sig-param">*arrays</em>, <em class="sig-param">rate=0.2</em>, <em class="sig-param">random_state=None</em>, <em class="sig-param">shuffle=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/preprocessing.html#train_test_split"><span class="viewcode-link">[ソース]</span></a><a class="headerlink" href="#preprocessing.train_test_split" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>トレーニングデータとテストデータを分割する関数</p>
+<dl class="field-list simple">
+<dt class="field-odd">パラメータ</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>*arrays</strong> (<em>sequence of arrays</em>) -- 同じサンプル数を持ついくつかの行列</p></li>
+<li><p><strong>rate</strong> (<em>float</em><em>(</em><em>default=0.2</em><em>)</em>) -- 全体に対する分割後のテストデータの割合</p></li>
+<li><p><strong>random_state</strong> (<em>int</em><em> or </em><em>None</em><em>(</em><em>default=None</em><em>)</em>) -- 乱数発生のシード値</p></li>
+<li><p><strong>shuffle</strong> (<em>boolean</em><em>(</em><em>default=True</em><em>)</em>) -- 分割前にデータをシャッフルするかどうか</p></li>
+</ul>
+</dd>
+<dt class="field-even">戻り値</dt>
+<dd class="field-even"><p><p><strong>splited_data</strong> -- 与えられた行列の数 * 2 の長さを持つ</p>
+<p>[array0_train, array0_test, array1_train, array1_test, ...]のような形式</p>
+</p>
+</dd>
+<dt class="field-odd">戻り値の型</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+<p class="rubric">サンプル</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span>
+<span class="go">array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span>
+<span class="go">array([[0, 0, 0],</span>
+<span class="go">       [1, 1, 1],</span>
+<span class="go">       [2, 2, 2],</span>
+<span class="go">       [3, 3, 3],</span>
+<span class="go">       [4, 4, 4],</span>
+<span class="go">       [5, 5, 5],</span>
+<span class="go">       [6, 6, 6],</span>
+<span class="go">       [7, 7, 7],</span>
+<span class="go">       [8, 8, 8],</span>
+<span class="go">       [9, 9, 9]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span>         <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span>
+<span class="go">array([0, 1, 2, 3, 4, 5, 6, 7])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_test</span>
+<span class="go">array([8, 9])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_train</span>
+<span class="go">array([[0, 0, 0],</span>
+<span class="go">       [1, 1, 1],</span>
+<span class="go">       [2, 2, 2],</span>
+<span class="go">       [3, 3, 3],</span>
+<span class="go">       [4, 4, 4],</span>
+<span class="go">       [5, 5, 5],</span>
+<span class="go">       [6, 6, 6],</span>
+<span class="go">       [7, 7, 7]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_test</span>
+<span class="go">array([[8, 8, 8],</span>
+<span class="go">       [9, 9, 9]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="preprocessing.Standardization.html" class="btn btn-neutral float-right" title="preprocessing.Standardization" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="preprocessing.html" class="btn btn-neutral float-left" title="preprocessing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, CastaChick
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
