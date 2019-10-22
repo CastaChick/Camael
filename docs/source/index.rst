@@ -13,6 +13,7 @@ Welcome to Camael's documentation!
    load_data
    preprocessing
 
+   classifier_models
 
 Indices and tables
 ==================

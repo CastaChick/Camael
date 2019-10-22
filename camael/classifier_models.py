@@ -129,7 +129,7 @@ class KNNClassifier:
 
         Returns
         -------
-        y: vecttor, len=(samples)
+        y: vector, len=(samples)
             予測されたカテゴリ
         """
         y = np.zeros(samples.shape[0], dtype=np.uint8)
