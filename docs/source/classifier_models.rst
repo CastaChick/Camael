@@ -8,3 +8,4 @@ classifier_models
    :caption: Contents:
 
    classifier_models.KNNClassifier
+   classifier_models.LogisticRegressionClassifier
