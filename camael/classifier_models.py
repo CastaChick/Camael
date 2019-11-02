@@ -1,4 +1,5 @@
 import numpy as np
+import cvxopt
 
 
 class KNNClassifier:
@@ -344,7 +345,7 @@ class LogisticRegressionClassifier:
             正解率
         """
         X = np.hstack((X, np.ones((X.shape[0], 1))))
-        self.y = self._label_encode(y)
+        y = self._label_encode(y)
         return self._culc_acc(y, self.predict(X))
 
     def predict(self, X):
@@ -381,3 +382,160 @@ class LogisticRegressionClassifier:
         return \
             np.sum(-y*np.log(self._output_func(X, w))
                    - (1-y)*np.log((1-self._output_func(X, w))))
+
+
+class LinearSVC:
+    """
+    線形SVMによる分類を行う
+
+    Parameters
+    ----------
+    C: float (default=1.0)
+        正則化パラメータ
+
+    multi_class: boolean (default=False)
+        他クラス分類するかどうか
+        Trueの時はOvR分類を行う
+
+    log: boolean (default=True)
+        ログを出力するかどうか
+
+    Examples
+    --------
+    >>> import numpy as np
+    >>> np.random.seed(1)
+    >>> from load_data import load_iris
+    >>> X, y = load_iris()
+    >>> clf = LinearSVC(multi_class=True, log=False)
+    >>> clf.fit(X, y)
+    >>> print("Acc: {:.3f}".format(clf.score(X, y)))
+    Acc: 0.940
+    """
+    def __init__(self, C=1.0, multi_class=False, log=True):
+        self.C = C
+        self.multi_class = multi_class
+        self.log = log
+
+    def fit(self, X, y):
+        """
+        モデルをデータに適合させる
+
+        Parameters
+        ----------
+        X: array, shape=(samples, columns)
+            学習データの特徴量
+
+        y: vector, len=(samples)
+            学習データの正解ラベル
+        """
+        self.X = X
+        self.N = X.shape[0]
+        self.M = X.shape[1]
+        self.y = self._label_encode(y)
+        self.beta_list = []
+
+        if self.multi_class:
+            for i in range(len(self.label_to_vector)):
+                if self.log:
+                    print("Training No.{} classifier".format(i))
+                self.beta_list.append(
+                    self._fit_one(np.array(list(map(self.encode, y == i)))))
+        else:
+            self.beta_list.append(
+                self._fit_one(np.array(list(map(self.encode, self.y)))))
+
+    def _label_encode(self, y):  # 辞書を用意してラベルを0-indexedベクトルに変換する
+        self.label_to_vector = \
+            {label: i for i, label in enumerate(set(y))}
+        self.vector_to_label = \
+            {i: label for i, label in enumerate(set(y))}
+
+        return np.array([self.label_to_vector[key] for key in y])
+
+    def _fit_one(self, y):
+        """
+        二値分類器のトレーニング
+
+        Parameters
+        ----------
+        y: vector, len=(samples)
+            0 or 1の正解ラベル
+
+        Returns
+        -------
+        beta: 学習した重みベクトル
+        """
+        c = np.zeros(2*self.N)
+        c[self.N:] += self.C
+        y_ = y.reshape((1, -1))
+        o = 0.
+        G = np.vstack((-np.eye(self.N), np.eye(self.N)))
+        Y = np.diag(y)
+        H = Y.dot(self.X).dot(self.X.T).dot(Y.T)
+        ones = -np.ones((self.N, 1))
+        H, ones, G, c, y_, o = map(cvxopt.matrix, (H, ones, G, c, y_, o))
+        cvxopt.solvers.options['show_progress'] = False
+        alpha = \
+            np.array(cvxopt.solvers.qp(H, ones, G, c, y_, o)['x']).reshape(-1)
+
+        self._sup_vecs = []
+        for i in range(self.N):
+            if self.C > alpha[i] > 1.e-5:
+                self._sup_vecs.append(i)
+
+        beta = np.zeros(self.M)
+        for i in range(self.N):
+            beta += alpha[i] * y[i] * self.X[i]
+
+        beta_0 = 0
+        for i in self._sup_vecs:
+            beta_0 += y[i] - self.X[i].dot(beta)
+        beta_0 /= len(self._sup_vecs)
+
+        return np.hstack((np.array(beta_0), beta))
+
+    def _output_func(self, X, beta):
+        return X.dot(beta[1:]) + beta[0]
+
+    def predict(self, X):
+        """
+        分類を行う
+
+        Parameters
+        ----------
+        X: array, shape=(samples, columns)
+            テストデータ
+        """
+        pred = [self._output_func(X, beta_i) for beta_i in self.beta_list]
+        pred_label = np.array(
+            [self.vector_to_label[i] for i in np.argmax(pred, axis=0)]
+            )
+
+        return pred_label
+
+    def _culc_acc(self, y, y_pred):
+        return np.sum(y == y_pred) / y.shape[0]
+
+    def score(self, X, y):
+        """
+        モデルの正解率を求める
+
+        Parameters
+        ----------
+        X: array, shape=(samples, coumns)
+            説明変数の行列
+
+        y: vector, len=(samples)
+            正解カテゴリの行列
+
+        Returns
+        -------
+        acc: float
+            正解率
+        """
+        X = X
+        self.y = self._label_encode(y)
+        return self._culc_acc(y, self.predict(X))
+
+    def encode(self, x):
+        return 1. if x else -1.
