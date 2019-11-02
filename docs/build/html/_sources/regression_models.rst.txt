@@ -8,3 +8,4 @@ regression_models
    :caption: Contents:
 
    regression_models.LinearRegression
+   regression_models.KNNRegression

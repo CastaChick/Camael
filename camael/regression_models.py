@@ -101,6 +101,7 @@ class LinearRegression:
         """
         return self._culc_error(y, self.predict(X))
 
+
 class KNNRegression:
     """
     K近傍法(k-nearest neighbor)による回帰を行う
