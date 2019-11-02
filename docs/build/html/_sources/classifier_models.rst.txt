@@ -9,3 +9,4 @@ classifier_models
 
    classifier_models.KNNClassifier
    classifier_models.LogisticRegressionClassifier
+   classifier_models.LinearSVC
