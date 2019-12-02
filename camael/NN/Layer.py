@@ -19,14 +19,14 @@ class FC:
         self.input_shape = input_shape
         self.output_shape = output_shape
 
-    def _initiarize(self, _input_shape, _update_func):
+    def _initiarize(self, _input_shape, _optimizer):
         if not self.input_shape:
             self.input_shape = _input_shape
 
         self.A = \
             np.random.normal(0, 0.1, (self.output_shape, self.input_shape))
         self.b = np.random(0, 0.1, self.output_shape)
-        self.update_func = _update_func
+        self.optimizer = _optimizer
 
     def _forward(self, X):
         self.X = X
@@ -35,9 +35,9 @@ class FC:
     def _backward(self, df):
         dx = df.dot(self.A.T)
         dA = df.T.dot(self.X / self.X.shape[1])
-        self.A = self.update_func.update(self.A, dA)
+        self.A = self.optimizer.update(self.A, dA)
         db = np.average(df, axis=0)
-        self.b = self.update_func.update(self.b, db)
+        self.b = self.optimizer.update(self.b, db)
         return dx
 
 
