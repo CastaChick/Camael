@@ -85,6 +85,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../preprocessing.html">preprocessing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../regression_models.html">regression_models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../classifier_models.html">classifier_models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../neural_network.html">Neural Network Library</a></li>
 </ul>
 
             
@@ -215,7 +216,7 @@
     <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> \
         <span class="n">_load_data</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_path</span><span class="p">,</span> <span class="s2">&quot;cifar10_target.binaryfile&quot;</span><span class="p">))</span>
 
-    <span class="k">return</span> <span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">),</span> <span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="o">.</span><span class="n">flatten</span><span class="p">()),</span> <span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span></div>
 
 
 <div class="viewcode-block" id="load_fashion_mnist"><a class="viewcode-back" href="../load_data.html#load_data.load_fashion_mnist">[ドキュメント]</a><span class="k">def</span> <span class="nf">load_fashion_mnist</span><span class="p">():</span>
