@@ -24,7 +24,7 @@ class Model:
         optimizer: class
             最適化手法
 
-        loss: class
+        loss: func
             損失関数
 
         metrix: func (default=None)
@@ -78,14 +78,14 @@ class Model:
                 out = X_batch
                 for layer in self.layers:
                     out = layer._forward(out)
-                loss, df = self.loss._culc(y_batch, out)
+                loss, df = self.loss(y_batch, out)
                 for layer in self.layers[::-1]:
                     df = layer._backward(df)
 
                 if self.log:
                     print("batch: {} loss: {}".format(batch, loss))
                 batch += 1
-            if self.log:
+            if self.log and self.metrix:
                 print("{}: {}".format(
                     self.metrix._sp, self.score(self.X, self.y)))
 
