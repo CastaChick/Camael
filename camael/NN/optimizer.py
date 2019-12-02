@@ -11,6 +11,22 @@ class SGD:
         self.eta = eta
 
     def _update(self, X, dx):
+        """
+        更新を行う
+
+        Parameters
+        ----------
+        X: array
+            更新前の重み
+
+        dx: array
+            計算した勾配
+
+        Returns
+        -------
+        new_X: array
+            更新された重み
+        """
         return X - self.eta * dx
 
 
@@ -46,6 +62,22 @@ class Adam:
         self.t = 0
 
     def _update(self, X, dx):
+        """
+        更新を行う
+
+        Parameters
+        ----------
+        X: array
+            更新前の重み
+
+        dx: array
+            計算した勾配
+
+        Returns
+        -------
+        new_X: array
+            更新された重み
+        """
         self.t += 1
         self.s = self.rho1*self.s + (1-self.rho1)*dx
         self.r = self.rho2*self.r + (1-self.rho2)*dx**2

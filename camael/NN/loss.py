@@ -12,6 +12,14 @@ def cross_entropy(y_label, y_pred):
 
     y_pred: array
         予測ラベル
+
+    Returns
+    -------
+    loss: float
+        クロスエントロピー誤差
+
+    df: array
+        出力層へ逆伝搬させる勾配
     """
     assert y_label.shape == y_pred.shape, "引数の形が不正です"
     loss = -np.sum(y_label * np.log(y_pred)) / y_label.shape[0]
@@ -30,6 +38,14 @@ def MSE(y, y_pred):
 
     y_pred: array
         予測された値
+
+    Returns
+    -------
+    loss: float
+        平均二乗誤差
+
+    df: array
+        出力層へ逆伝搬させる勾配
     """
     assert y.shape == y_pred.shape, "引数の形が不正です"
     loss = np.sum((y - y_pred)**2) / y.shape[0]

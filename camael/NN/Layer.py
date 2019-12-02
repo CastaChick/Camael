@@ -1,12 +1,13 @@
 import numpy as np
 from copy import deepcopy
 
+
 class FC:
     """
     ニューラルネットワークの全結合層
 
-    Parameter
-    ---------
+    Parameters
+    ----------
     input_shape: int (default=None)
         入力サイズ
         入力層の時に指定

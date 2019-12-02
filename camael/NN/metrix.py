@@ -12,6 +12,11 @@ def accuracy(y, y_pred):
 
     y_pred: array
         予測値
+
+    Returns
+    -------
+    acc: float
+        正解率
     """
     y = np.argmax(y, axis=1)
 
