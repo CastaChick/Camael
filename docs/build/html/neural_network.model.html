@@ -1,0 +1,286 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ja" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ja" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Model &mdash; Camael 0.0.0 ドキュメント</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="_static/translations.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="Loss functions" href="neural_network.loss.html" />
+    <link rel="prev" title="Layers" href="neural_network.layer.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Camael
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="load_data.html">load_data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="preprocessing.html">preprocessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="regression_models.html">regression_models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="classifier_models.html">classifier_models</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="neural_network.html">Neural Network Library</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="neural_network.layer.html">Layers</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neural_network.loss.html">Loss functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neural_network.optimizer.html">Optimizers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neural_network.metrix.html">Metrix functions</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Camael</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="neural_network.html">Neural Network Library</a> &raquo;</li>
+        
+      <li>Model</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/neural_network.model.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="model">
+<h1>Model<a class="headerlink" href="#model" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<dl class="class">
+<dt id="nn.model.Model">
+<em class="property">class </em><code class="sig-prename descclassname">nn.model.</code><code class="sig-name descname">Model</code><a class="reference internal" href="_modules/nn/model.html#Model"><span class="viewcode-link">[ソース]</span></a><a class="headerlink" href="#nn.model.Model" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>ニューラルネットワーク全体のモデル</p>
+<dl class="method">
+<dt id="nn.model.Model.compile">
+<code class="sig-name descname">compile</code><span class="sig-paren">(</span><em class="sig-param">optimizer</em>, <em class="sig-param">loss</em>, <em class="sig-param">metrix=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nn/model.html#Model.compile"><span class="viewcode-link">[ソース]</span></a><a class="headerlink" href="#nn.model.Model.compile" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>モデルのコンパイル、初期化を行う</p>
+<dl class="field-list simple">
+<dt class="field-odd">パラメータ</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>optimizer</strong> (<em>class</em>) -- 最適化手法</p></li>
+<li><p><strong>loss</strong> (<em>func</em>) -- 損失関数</p></li>
+<li><p><strong>metrix</strong> (<em>func</em><em> (</em><em>default=None</em><em>)</em>) -- モデルの評価</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="nn.model.Model.fit">
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">y</em>, <em class="sig-param">max_iter=10</em>, <em class="sig-param">batch_size=100</em>, <em class="sig-param">shuffle=True</em>, <em class="sig-param">log=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nn/model.html#Model.fit"><span class="viewcode-link">[ソース]</span></a><a class="headerlink" href="#nn.model.Model.fit" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>モデルのトレーニングを行う</p>
+<dl class="field-list simple">
+<dt class="field-odd">パラメータ</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>array</em><em>, </em><em>shape=</em><em>(</em><em>samples</em><em>, </em><em>columns</em><em>)</em>) -- 学習データの特徴量</p></li>
+<li><p><strong>y</strong> (<em>vector</em><em>, </em><em>len=</em><em>(</em><em>samples</em><em>)</em>) -- 学習データの正解ラベル</p></li>
+<li><p><strong>max_iter</strong> (<em>int</em><em> (</em><em>default=10</em><em>)</em>) -- 最大エポック数</p></li>
+<li><p><strong>batch_size</strong> (<em>int</em><em> (</em><em>default=100</em><em>)</em>) -- バッチサイズ</p></li>
+<li><p><strong>log</strong> (<em>boolean</em><em> (</em><em>default=True</em><em>)</em>) -- ログを出力するかどうか</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="nn.model.Model.predict">
+<code class="sig-name descname">predict</code><span class="sig-paren">(</span><em class="sig-param">X</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nn/model.html#Model.predict"><span class="viewcode-link">[ソース]</span></a><a class="headerlink" href="#nn.model.Model.predict" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>予測を行う</p>
+<dl class="field-list simple">
+<dt class="field-odd">パラメータ</dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>array</em><em>, </em><em>shape=</em><em>(</em><em>samples</em><em>, </em><em>columns</em><em>)</em>) -- テストデータ</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="nn.model.Model.score">
+<code class="sig-name descname">score</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nn/model.html#Model.score"><span class="viewcode-link">[ソース]</span></a><a class="headerlink" href="#nn.model.Model.score" title="この定義へのパーマリンク">¶</a></dt>
+<dd><p>モデルの正解率を求める</p>
+<dl class="field-list simple">
+<dt class="field-odd">パラメータ</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>array</em><em>, </em><em>shape=</em><em>(</em><em>samples</em><em>, </em><em>coumns</em><em>)</em>) -- 説明変数の行列</p></li>
+<li><p><strong>y</strong> (<em>array</em>) -- 教師データの行列</p></li>
+</ul>
+</dd>
+<dt class="field-even">戻り値</dt>
+<dd class="field-even"><p><strong>score</strong> -- モデルのスコア</p>
+</dd>
+<dt class="field-odd">戻り値の型</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="neural_network.loss.html" class="btn btn-neutral float-right" title="Loss functions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="neural_network.layer.html" class="btn btn-neutral float-left" title="Layers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, CastaChick
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
