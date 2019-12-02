@@ -35,9 +35,9 @@ class FC:
     def _backward(self, df):
         dx = df.dot(self.A.T)
         dA = df.T.dot(self.X / self.X.shape[1])
-        self.A = self.optimizer.update(self.A, dA)
+        self.A = self.optimizer._update(self.A, dA)
         db = np.average(df, axis=0)
-        self.b = self.optimizer.update(self.b, db)
+        self.b = self.optimizer._update(self.b, db)
         return dx
 
 

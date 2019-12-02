@@ -31,7 +31,7 @@ def MSE(y, y_pred):
     y_pred: array
         予測された値
     """
-    assert y_label.shape == y_pred.shape, "引数の形が不正です"
+    assert y.shape == y_pred.shape, "引数の形が不正です"
     loss = np.sum((y - y_pred)**2) / y.shape[0]
     df = -2*(y - y_pred)
     return loss, df

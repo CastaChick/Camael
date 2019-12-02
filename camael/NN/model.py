@@ -1,4 +1,5 @@
 import numpy as np
+from copy import deepcopy
 
 
 class Model:
@@ -32,7 +33,7 @@ class Model:
         """
         for layer in self.layers:
             if layer._sp == "FC":
-                layer._initiarize(self._input_shape, optimizer)
+                layer._initiarize(self._input_shape, deepcopy(optimizer))
                 self._input_shape = layer._output_shape
 
         self.loss = loss
