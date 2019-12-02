@@ -34,7 +34,7 @@ class Model:
         for layer in self.layers:
             if layer._sp == "FC":
                 layer._initiarize(self._input_shape, deepcopy(optimizer))
-                self._input_shape = layer._output_shape
+                self._input_shape = layer.output_shape
 
         self.loss = loss
         self.metrix = metrix
@@ -87,8 +87,7 @@ class Model:
                     print("batch: {} loss: {}".format(batch, loss))
                 batch += 1
             if self.log and self.metrix:
-                print("{}: {}".format(
-                    self.metrix._sp, self.score(self.X, self.y)))
+                print("acc: {:.2f}%".format(self.score(self.X, self.y)))
 
     def predict(self, X):
         """
@@ -108,7 +107,7 @@ class Model:
         out = X
         for layer in self.layers:
             out = layer._forward(out)
-        pred_label = np.argmax(out, axis=0)
+        pred_label = np.argmax(out, axis=1)
         return pred_label
 
     def _predict_reg(self, X):
@@ -134,7 +133,7 @@ class Model:
             モデルのスコア
         """
         assert X.shape[0] == y.shape[0], "サンプル数を合わせてください"
-        return self.metrix(self.predict(X), y)
+        return self.metrix(y, self.predict(X))
 
     def _get_minibatch(self):
         index = np.arange(self.X.shape[0])

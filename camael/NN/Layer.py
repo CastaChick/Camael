@@ -1,5 +1,5 @@
 import numpy as np
-
+from copy import deepcopy
 
 class FC:
     """
@@ -24,9 +24,10 @@ class FC:
             self.input_shape = _input_shape
 
         self.A = \
-            np.random.normal(0, 0.1, (self.output_shape, self.input_shape))
-        self.b = np.random(0, 0.1, self.output_shape)
-        self.optimizer = _optimizer
+            np.random.normal(0, 0.1, (self.input_shape, self.output_shape))
+        self.b = np.random.normal(0, 0.1, self.output_shape)
+        self.optimizerA = deepcopy(_optimizer)
+        self.optimizerb = deepcopy(_optimizer)
 
     def _forward(self, X):
         self.X = X
@@ -34,10 +35,10 @@ class FC:
 
     def _backward(self, df):
         dx = df.dot(self.A.T)
-        dA = df.T.dot(self.X / self.X.shape[1])
-        self.A = self.optimizer._update(self.A, dA)
+        dA = df.T.dot(self.X).T / self.X.shape[1]
+        self.A = self.optimizerA._update(self.A, dA)
         db = np.average(df, axis=0)
-        self.b = self.optimizer._update(self.b, db)
+        self.b = self.optimizerb._update(self.b, db)
         return dx
 
 

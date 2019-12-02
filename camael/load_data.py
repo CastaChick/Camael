@@ -65,7 +65,7 @@ def load_cifar10():
     y_train, y_test = \
         _load_data(os.path.join(dir_path, "cifar10_target.binaryfile"))
 
-    return (X_train, y_train), (X_test, y_test)
+    return (X_train, y_train.flatten()), (X_test, y_test.flatten())
 
 
 def load_fashion_mnist():
