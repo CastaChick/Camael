@@ -30,11 +30,11 @@ class FC:
 
     def _forward(self, X):
         self.X = X
-        return self.X@self.A + self.b
+        return self.X.dot(self.A) + self.b
 
     def _backward(self, df):
-        dx = df@self.A.T
-        dA = df.T@self.X / self.X.shape[1]
+        dx = df.dot(self.A.T)
+        dA = df.T.dot(self.X / self.X.shape[1])
         self.A = self.update_func.update(self.A, dA)
         db = np.average(df, axis=0)
         self.b = self.update_func.update(self.b, db)
