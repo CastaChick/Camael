@@ -3,3 +3,6 @@
 .vscode
 camael/__pycache__/*
 camael/nn/__pycache__/*
+build/
+dist/
+Camael.egg-info/
