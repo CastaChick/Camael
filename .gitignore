@@ -1,10 +1,10 @@
 ../*
 .python-version
 .vscode
+package-lock.json
 camael/__pycache__/*
 camael/nn/__pycache__/*
 build/
 dist/
 Camael.egg-info/
 node_modules/
-package-lock.json
