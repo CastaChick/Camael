@@ -6,3 +6,4 @@ camael/nn/__pycache__/*
 build/
 dist/
 Camael.egg-info/
+node-modules/

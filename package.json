@@ -1,0 +1,26 @@
+{
+  "name": "camael",
+  "version": "1.0.0",
+  "description": "## データのload、前処理 * データ     * 数値系         * [x] boston         * [x] iris     * 画像系         * [x] MNIST         * [x] MNIST-fashion         * [x] CIFAR-10",
+  "main": "searchindex.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CastaChick/Camael.git"
+  },
+  "author": "CastaChick",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CastaChick/Camael/issues"
+  },
+  "homepage": "https://github.com/CastaChick/Camael#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
