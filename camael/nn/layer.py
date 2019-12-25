@@ -97,6 +97,7 @@ class Tanh:
 class Dropout:
     """
     ドロップアウト層
+
     Parameters
     ----------
     rate: float (default=0.5)
