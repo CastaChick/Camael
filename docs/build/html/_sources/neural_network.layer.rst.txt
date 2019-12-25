@@ -12,3 +12,6 @@ Layers
 
 .. autoclass :: nn.layer.Tanh
     :members:
+
+.. autoclass :: nn.layer.Dropout
+    :members:

@@ -70,7 +70,7 @@ class Model:
         self.max_iter = max_iter
         self.batch_size = batch_size
         self.log = log
-
+        mode = "fit"
         for epoch in range(max_iter):
             if self.log:
                 print("epoch: {}".format(epoch+1))
@@ -78,10 +78,10 @@ class Model:
             for X_batch, y_batch in self._get_minibatch():
                 out = X_batch
                 for layer in self.layers:
-                    out = layer._forward(out)
+                    out = layer._forward(out, mode=mode)
                 loss, df = self.loss(y_batch, out)
                 for layer in self.layers[::-1]:
-                    df = layer._backward(df)
+                    df = layer._backward(df, mode=mode)
 
                 if self.log:
                     print("batch: {} loss: {}".format(batch, loss))
@@ -105,15 +105,17 @@ class Model:
 
     def _predict_clf(self, X):
         out = X
+        mode = "predict"
         for layer in self.layers:
-            out = layer._forward(out)
+            out = layer._forward(out, mode=mode)
         pred_label = np.argmax(out, axis=1)
         return pred_label
 
     def _predict_reg(self, X):
         out = X
+        mode = "predict"
         for layer in self.layers:
-            out = layer._forward(out)
+            out = layer._forward(out, mode=mode)
         return out
 
     def score(self, X, y):

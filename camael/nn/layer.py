@@ -30,11 +30,11 @@ class FC:
         self.optimizerA = deepcopy(_optimizer)
         self.optimizerb = deepcopy(_optimizer)
 
-    def _forward(self, X):
+    def _forward(self, X, mode):
         self.X = X
         return self.X.dot(self.A) + self.b
 
-    def _backward(self, df):
+    def _backward(self, df, mode):
         dx = df.dot(self.A.T)
         dA = df.T.dot(self.X).T / self.X.shape[1]
         self.A = self.optimizerA._update(self.A, dA)
@@ -50,11 +50,11 @@ class ReLU:
     def __init__(self):
         self._sp = "activate"
 
-    def _forward(self, X):
+    def _forward(self, X, mode):
         self.X = X
         return np.where(self.X > 0, self.X, 0)
 
-    def _backward(self, df):
+    def _backward(self, df, mode):
         return np.where(self.X > 0, df, 0)
 
 
@@ -65,13 +65,13 @@ class Softmax:
     def __init__(self):
         self._sp = "activate"
 
-    def _forward(self, X):
+    def _forward(self, X, mode):
         X -= np.max(X)
         X = np.exp(X)
         self.y = X / np.sum(X, axis=1).reshape((-1, 1))
         return self.y
 
-    def _backward(self, t):
+    def _backward(self, t, mode):
         """
         # 実装の単純化のための仮定
         * 損失関数としてクロスエントロピーを用いること
@@ -85,10 +85,39 @@ class Tanh:
     def __init__(self):
         self._sp = "activate"
 
-    def _forward(self, X):
+    def _forward(self, X, mode):
         self.X = X
         return np.tanh(self.X)
 
-    def _backward(self, df):
+    def _backward(self, df, mode):
         dx = 1 / np.cosh(self.X)**2
         return df*dx
+
+
+class Dropout:
+    """
+    ドロップアウト層
+
+    Parameters
+    ----------
+    rate: float (default=0.5)
+        無効化するニューロンの割合
+    """
+    def __init__(self, rate=0.5):
+        self._sp = "Dropout"
+        self.rate = rate
+
+    def _forward(self, X, mode):
+        if mode == "fit":
+            self.layer = np.array(
+                np.random.random(X.shape) >= 0.5, dtype=np.uint8)
+            return self.layer * X
+
+        elif mode == "predict":
+            return X
+
+    def _backward(self, dx, mode):
+        if mode == "fit":
+            return self.layer * dx
+        elif mode == "predict":
+            return dx
