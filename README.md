@@ -1,5 +1,15 @@
 # Camael
 
+## Install
+
+```
+pip install camael
+```
+
+## Documents and How to use
+
+[こちら](https://camael.herokuapp.com)をご覧ください。
+
 ## データのload、前処理
 * データ
     * 数値系
